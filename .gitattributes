@@ -1,2 +1,11 @@
 # Manually setting the main language
+* linguist-vendored
+*.java linguist-vendored=false
 *.rb linguist-language=Java
+
+
+
+*.java linguist-detectable=true
+*.js linguist-detectable=false
+*.html linguist-detectable=false
+*.xml linguist-detectable=false
