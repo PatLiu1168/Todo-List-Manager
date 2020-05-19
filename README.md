@@ -1,2 +1,2 @@
 # Todo List Manager
- Web Application with UI, uses springboot, postgres/postman, and localhost 8080
+ Web Application with UI, uses springboot\(java + maven\) and postgres/postman
