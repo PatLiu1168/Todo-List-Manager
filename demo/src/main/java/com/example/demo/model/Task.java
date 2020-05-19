@@ -1,4 +1,4 @@
-package com.example.todolist.model;
+package com.example.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -8,7 +8,6 @@ import java.util.Date;
 public class Task {
     private final String name;
 
-    @NotBlank
     private final Date day;
 
     @NotBlank
