@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class TaskService {
@@ -37,7 +36,7 @@ public class TaskService {
         return taskDao.deleteTask(taskName);
     }
 
-//    public int updateTask (String taskName){
-//        return taskDao.updateTask(taskName);
-//    }
+    public int updateTask (Task task){
+        return taskDao.updateTask(task);
+    }
 }

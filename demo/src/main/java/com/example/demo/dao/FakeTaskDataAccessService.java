@@ -3,9 +3,7 @@ package com.example.demo.dao;
 import com.example.demo.model.Task;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Repository("fakeDao") //differentiates - multiple implementations of Dao
 public class FakeTaskDataAccessService implements TaskDao{
@@ -13,7 +11,11 @@ public class FakeTaskDataAccessService implements TaskDao{
 
     @Override
     public int insertTask(Task task){
-        DB.add(new Task(task.getDay(), task.getName(), task.getTask()));
+        Date currentDateTime = new Date();
+        if (task.getDay().after(currentDateTime)) {
+            DB.add(new Task(task.getDay(), task.getName(), task.getTask()));
+            DB.sort(Comparator.comparing(Task::getDay));
+        }
         return 1;
     }
 
@@ -36,18 +38,19 @@ public class FakeTaskDataAccessService implements TaskDao{
         return 1;
     }
 
-//    @Override
-//    public int updateTask(String taskName) {
-//        return selectTask(taskName).map(task -> {int indexofTask = DB.indexOf(task);
-//            if (indexofTask >=0){
-//                //found
-//                DB.set(indexofTask, new Task(id, update.getName()));
-//                return 1;
-//            }
-//
-//            return 0;
-//        }).orElse(0);
-//    }
+    @Override
+    public int updateTask(Task taskToUpdate) {
+        Optional<Task> taskMaybe = DB.stream().filter(task -> (task.getName().equals(taskToUpdate.getName())) && (task.getDay().equals(taskToUpdate.getDay()))).findFirst();
+        return taskMaybe.map(task -> { int indexofTask = DB.indexOf(task);
+                if (indexofTask >=0){
+                    //found
+                    DB.set(indexofTask, new Task(taskToUpdate.getDay(), taskToUpdate.getName(), taskToUpdate.getTask()));
+                    return 1;
+                }
+
+                return 0;
+        }).orElse(0);
+    }
 
     @Override
     public List<Task> selectAllTasks() {

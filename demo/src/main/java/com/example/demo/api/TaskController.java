@@ -41,9 +41,9 @@ public class TaskController {
     public void deleteTask (@PathVariable("taskName") String taskName){
         taskService.removeTask(taskName);
     }
-//
-//    @PutMapping(path = "{taskName}")
-//    public void updateTask(@PathVariable("taskName") String taskName){
-//        taskService.updateTask(String taskName);
-//    }
+
+    @PutMapping
+    public void updateTask(@RequestBody Task task){
+        taskService.updateTask(task);
+    }
 }
